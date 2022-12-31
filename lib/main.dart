@@ -1,12 +1,20 @@
+import 'dart:html';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/basic.dart';
+import 'package:flutter/src/widgets/framework.dart';
 
-void main() => runApp(Quizzler());
+void main() => runApp(MyApp());
 
-class Quizzler extends StatelessWidget {
+class MyApp extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
+
+
     return Center(
-        child: MaterialApp(
+      child: MaterialApp(
           home: Scaffold(
             appBar: AppBar(
               title: Text('Statlab'),
@@ -14,224 +22,181 @@ class Quizzler extends StatelessWidget {
             ),
             backgroundColor: Colors.amber,
             body: SafeArea(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.0),
-                child: QuizPage(),
+              child: Column(
+                children: [
+                  CircleAvatar(
+                    radius: 50.0,
+                    backgroundImage: AssetImage('assets/image/playstore.png'),
+                  ),
+                  Text('Statlab',
+                      style: TextStyle(
+                          fontSize: 51,
+                          color: Colors.red,
+                          fontFamily: 'RubikVinyl')),
+                  Text('Enter Login Details',
+                      style: TextStyle(
+                          fontSize: 33,
+                          color: Colors.lightGreenAccent,
+                          fontFamily: 'RubikSprayPaint')),
+                  Card(
+                    color: Colors.white70,
+                    margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
+                    child: ListTile(
+                      leading: Icon(Icons.account_box_outlined,
+                          size: 21.0, color: Colors.red),
+                      title: TextFormField(
+                        decoration:
+                        InputDecoration(labelText: 'Please Provide the E-Mail'),
+                        keyboardType: TextInputType.emailAddress,
+                        //obscureText: true,
+                        style: TextStyle(
+                            color: Colors.teal.shade900,
+                            fontFamily: 'Pacifico',
+                            fontSize: 21.0),
+                      ),
+                    ),
+                  ),
+                  Card(
+                    color: Colors.white70,
+                    margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
+                    child: ListTile(
+                      leading: Icon(Icons.key, size: 21.0, color: Colors.red),
+                      title: TextFormField(
+                        decoration: InputDecoration(labelText: 'Password'),
+                        keyboardType: TextInputType.visiblePassword,
+                        obscureText: true,
+                        style: TextStyle(
+                            color: Colors.teal.shade900,
+                            fontFamily: 'Pacifico',
+                            fontSize: 21.0),
+                      ),
+                    ),
+                  ),
+                  /* Row(
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: ButtonTheme(
+                        child: InkWell(
+                          onTap: (){
+                            Random random = new Random();
+                             leftDiceNumber = random.nextInt(6);
+                          },
+                          child: Image(
+                            height: 221.0,
+
+                            //width: 301.0,
+                            image: AssetImage('assets/images/dice$leftDiceNumber.png'),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: ButtonTheme(
+                        child: InkWell(
+                          onTap: (){
+                            Random random = new Random();
+                            rightDiceNumber = random.nextInt(6);
+                          },
+                          child: Image(
+                            height: 221.0,
+
+                            //width: 301.0,
+                            image: AssetImage('assets/images/dice$rightDiceNumber.png'),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),*/
+                  DicePage(),
+                  Text('Click on The DICE to LOGIN',
+                      style: TextStyle(
+                          fontSize: 33,
+                          color: Colors.lightGreenAccent,
+                          fontFamily: 'RubikSprayPaint')),
+                ],
               ),
             ),
-          ),
-        ));
+          )),
+    );
   }
+
+
 }
 
-class QuizPage extends StatefulWidget {
+class DicePage extends StatefulWidget {
+
   @override
-  _QuizPageState createState() => _QuizPageState();
+  _DicePageState createState() => _DicePageState();
 }
 
-class _QuizPageState extends State<QuizPage> {
-  List<Icon> scoreKeeper = [
-
-  ];
-
-  /*Here _MyColor is a class like -
-
-  class _MyColor {
-  const _MyColor(this.color, this.name);
-
-  final Color color;
-  final String name;
-  }*/
-
+class _DicePageState extends State<DicePage> {
+  int leftDiceNumber =1;
+  int rightDiceNumber =2;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        Expanded(
-          flex: 5,
-          child: Padding(
-            padding: EdgeInsets.all(10.0),
-            child: Center(
-              child: Text(
-                'What kind of Organizational or Type of data is there ?',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 25.0,
-                  color: Colors.white,
+    return Center(
+      child: Row(
+        children: [
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: ButtonTheme(
+                child: InkWell(
+                  onTap: (){
+                    setState(() {
+                      Random random = new Random();
+                      leftDiceNumber = random.nextInt(5);
+                      rightDiceNumber = random.nextInt(5);
+                    });
+                  },
+                  child: Image(
+                    height: 199.0,
+
+                    //width: 301.0,
+                    image: AssetImage('assets/images/dice$leftDiceNumber.png'),
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-        Expanded(
-          child: Padding(
-            padding: EdgeInsets.all(15.0),
-            child: ButtonTheme(
-              child: Material(
-                color: Colors.purple[900],
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: ButtonTheme(
                 child: InkWell(
-                    onTap: () {
-                      setState(() {
-                        scoreKeeper.add(
-                          Icon(Icons.key, color: Colors.purple[900],),
-                        );
-                      });
+                  onTap: (){ setState(() {
+                    Random random = new Random();
+                    leftDiceNumber = random.nextInt(5);
+                    rightDiceNumber = random.nextInt(5);
+                  });
 
-                    },
-                    child: Text('Stock trading applications',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20.0,
-                        ))),
+                  },
+                  child: Image(
+                    height: 199.0,
+
+                    //width: 301.0,
+                    image: AssetImage('assets/images/dice$rightDiceNumber.png'),
+                  ),
+                ),
               ),
             ),
           ),
-        ),
-        Expanded(
-          child: Padding(
-            padding: EdgeInsets.all(15.0),
-            child: ButtonTheme(
-              child: Material(
-                color: Colors.indigo[400],
-                child: InkWell(
-                    onTap: () { setState(() {
-                      scoreKeeper.add(
-                        Icon(Icons.key, color: Colors.indigo[400],),
-                      );
-                    });},
-                    child: Text('Hotel',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20.0,
-                        ))),
-              ),
-            ),
-          ),
-        ),
-        Expanded(
-          child: Padding(
-            padding: EdgeInsets.all(15.0),
-            child: ButtonTheme(
-              child: Material(
-                color: Colors.blue[900],
-                child: InkWell(
-                    onTap: () { setState(() {
-                      scoreKeeper.add(
-                        Icon(Icons.key, color: Colors.blue[900],),
-                      );
-                    });},
-                    child: Text('Grocery Store',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20.0,
-                        ))),
-              ),
-            ),
-          ),
-        ),
-        Expanded(
-          child: Padding(
-            padding: EdgeInsets.all(15.0),
-            child: ButtonTheme(
-              child: Material(
-                color: Colors.green,
-                child: InkWell(
-                    onTap: () { setState(() {
-                      scoreKeeper.add(
-                        Icon(Icons.key, color: Colors.green,),
-                      );
-                    });},
-                    child: Text('Hospital',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20.0,
-                        ))),
-              ),
-            ),
-          ),
-        ),
-        Expanded(
-          child: Padding(
-            padding: EdgeInsets.all(15.0),
-            child: ButtonTheme(
-              child: Material(
-                color: Colors.yellow[900],
-                child: InkWell(
-                    onTap: () { setState(() {
-                      scoreKeeper.add(
-                        Icon(Icons.key, color: Colors.yellow[900],),
-                      );
-                    });},
-                    child: Text('Media and Entertainment Industry',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20.0,
-                        ))),
-              ),
-            ),
-          ),
-        ),
-        Expanded(
-          child: Padding(
-            padding: EdgeInsets.all(15.0),
-            child: ButtonTheme(
-              child: Material(
-                color: Colors.orange[900],
-                child: InkWell(
-                    onTap: () { setState(() {
-                      scoreKeeper.add(
-                        Icon(Icons.key, color: Colors.orange[900],),
-                      );
-                    });},
-                    child: Text('Transport',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20.0,
-                        ))),
-              ),
-            ),
-          ),
-        ),
-        Expanded(
-          child: Padding(
-            padding: EdgeInsets.all(15.0),
-            child: ButtonTheme(
-              child: Material(
-                color: Colors.red[900],
-                child: InkWell(
-                    onTap: () { setState(() {
-                      scoreKeeper.add(
-                        Icon(Icons.key, color: Colors.red[900],),
-                      );
-                    });},
-                    child: Text('Other',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20.0,
-                        ))),
-              ),
-            ),
-          ),
-        ),
-        IconButton(
-          iconSize: 72,
-          icon: const Icon(Icons.arrow_forward),
-          onPressed: () {
-            // ...
-          },
-        ),
-        Row(
-          children: scoreKeeper,
-        )
-      ],
+        ],
+      ),
+
+
     );
   }
 }
 
+
 /*
-question1: 'You can lead a cow down stairs but not up stairs.', false,
-question2: 'Approximately one quarter of human bones are in the feet.', true,
-question3: 'A slug\'s blood is green.', true,
-*/
+
+ */
